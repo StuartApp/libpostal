@@ -17,6 +17,7 @@ RUN bash bootstrap.sh && \
     make -j && \
     make install
 # build deb package
+WORKDIR /output
 RUN export DEB_PACKAGE_VERSION=$(sed 's|^v||' /src/versions/parser)+git$(bash -c 'cd /src; git rev-parse HEAD | head -c7') && \
     envsubst '${DEB_PACKAGE_VERSION}' < /src/assets/fpm-deb-scripts/postinst.sh.tpl > /src/assets/fpm-deb-scripts/postinst.sh && \
     fpm -n ${DEB_PACKAGE_NAME} \
