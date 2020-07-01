@@ -1,18 +1,21 @@
 #!/bin/sh
+
+download_data() {
+  libpostal_data download all /usr/share/libpostal  
+}
+
 after_upgrade() {
-  echo "Upgrading from $@"
+  echo "Updating data..."
+  download_data
 }
 
 after_install() {
-  echo "Installing ${GH_RELEASE}" data...
-  source /etc/lsb-release
-  if [ "${DISTRIB_ID}" == "Ubuntu" ]
-  then
-    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/ubuntu-${DISTRIB_RELEASE}-data-${GH_RELEASE}.tar.gz | tar -C / -zxf
-  fi
+  echo "Installing data..."
+  download_data
 }
 
-export GH_RELEASE=${DEB_PACKAGE_VERSION}
+export PACKAGE_VERSION=${DEB_PACKAGE_VERSION}
+export GH_RELEASE=$(echo ${PACKAGE_VERSION} | sed 's|+git|-|')
 
 if [ "${1}" = "configure" -a -z "${2}" ] || \
    [ "${1}" = "abort-remove" ]

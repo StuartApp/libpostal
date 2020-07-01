@@ -13,13 +13,9 @@ COPY ./ /src
 WORKDIR /src
 RUN bash bootstrap.sh && \
     mkdir -p /output/usr && \
-    ./configure --prefix=/output/usr && \
+    ./configure --prefix=/output/usr --disable-data-download && \
     make -j && \
     make install
-# move out big files from the package
-WORKDIR /output
-RUN tar -zcf data.tgz usr/share/libpostal && \
-    rm -rf /output/usr/share/libpostal/*
 # build deb package
 RUN export DEB_PACKAGE_VERSION=$(sed 's|^v||' /src/versions/parser)+git$(bash -c 'cd /src; git rev-parse HEAD | head -c7') && \
     envsubst '${DEB_PACKAGE_VERSION}' < /src/assets/fpm-deb-scripts/postinst.sh.tpl > /src/assets/fpm-deb-scripts/postinst.sh && \
