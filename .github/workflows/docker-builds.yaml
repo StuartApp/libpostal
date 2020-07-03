@@ -2,7 +2,7 @@ name: docker builds
 on: [push, pull_request]
 
 env:
-  DOCKER_IMAGE_NAME: stuart/libpostal
+  DOCKER_IMAGE_BASENAME: libpostal
   BASE_IMAGES: "ruby:2.4.9-stretch ubuntu:16.04 ubuntu:18.04"
 
 
@@ -22,23 +22,23 @@ jobs:
         pwd
         ls -hal
         git status -sb
-        for base_image in ${BASE_IMAGES}
-        do
-          docker build \
-            --build-arg BASE_IMAGE=${base_image} \
-            -t ${DOCKER_IMAGE_NAME}:${base_image} .
-            CID=$(docker create ${DOCKER_IMAGE_NAME}:${base_image})
-            docker cp ${CID}:/output ./output-${base_image}
-        done
-    - name: Prepare release files
-      run: |
         mkdir release-files
         for base_image in ${BASE_IMAGES}
         do
-          DEB_FILE=$(ls ./output-${base_image}/*deb)
-          DATA_FILE=$(ls ./output-${base_image}/*gz)
-          mv ${DEB_FILE} release-files/${base_image}-$(basename ${DEB_FILE})
-          mv ${DATA_FILE} release-files/${base_image}-$(basename ${DATA_FILE})
+          FS_SANITIZED_BASE_IMAGE=$(echo ${base_image} | sed 's|:|_|g')
+          OUTPUT_DIR=output-${FS_SANITIZED_BASE_IMAGE}
+
+          docker build \
+            --build-arg BASE_IMAGE=${base_image} \
+            -t ${DOCKER_IMAGE_BASENAME}/${base_image} .
+
+          CID=$(docker create ${DOCKER_IMAGE_BASENAME}/${base_image})
+          docker cp ${CID}:/output ${OUTPUT_DIR}
+
+          DEB_FILE=$(ls ${OUTPUT_DIR}/*deb)
+          DATA_FILE=$(ls ${OUTPUT_DIR}/*gz)
+          mv ${DEB_FILE} release-files/${FS_SANITIZED_BASE_IMAGE}-$(basename ${DEB_FILE})
+          mv ${DATA_FILE} release-files/${FS_SANITIZED_BASE_IMAGE}-$(basename ${DATA_FILE})
         done
     - name: Release
       env:
