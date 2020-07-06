@@ -46,7 +46,7 @@ jobs:
         RELEASE_NAME: "Release ${{ steps.metadata.outputs.version }}-${{ steps.metadata.outputs.commit }}"
         RELEASE_NOTES: "Automatic release from GH action on this project."
       run: |
-        gem install --no-document dpl --pre
+        sudo gem install --no-document dpl --pre
         dpl \
           --slug ${GITHUB_REPOSITORY} \
           --token ${GITHUB_TOKEN} \
