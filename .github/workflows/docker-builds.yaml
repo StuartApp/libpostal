@@ -47,10 +47,10 @@ jobs:
         RELEASE_NOTES: "Automatic release from GH action on this project."
       run: |
         sudo gem install --no-document dpl --pre
+        cd release-files
         dpl releases \
           --repo ${GITHUB_REPOSITORY} \
           --token ${GITHUB_TOKEN} \
           --name ${RELEASE_NAME} \
           --release_notes ${RELEASE_NOTES} \
-          --overwrite \
-          --file release-files/* 
+          --overwrite
