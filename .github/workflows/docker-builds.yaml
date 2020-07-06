@@ -48,7 +48,7 @@ jobs:
       run: |
         sudo gem install --no-document dpl --pre
         dpl releases \
-          --slug ${GITHUB_REPOSITORY} \
+          --repo ${GITHUB_REPOSITORY} \
           --token ${GITHUB_TOKEN} \
           --name ${RELEASE_NAME} \
           --release_notes ${RELEASE_NOTES} \
