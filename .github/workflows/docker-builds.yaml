@@ -46,8 +46,8 @@ jobs:
         RELEASE_NAME: "Release ${{ steps.metadata.outputs.version }}-${{ steps.metadata.outputs.commit }}"
         RELEASE_NOTES: "Automatic release from GH action on this project."
       run: |
-        apt install -y npm
-        npm install -g publish-release
+        sudo apt install -y npm
+        sudo npm install -g publish-release
         GITHUB_OWNER=$(echo ${GITHUB_REPOSITORY | awk -F/ '{print $1}')
         GITHUB_REPO=$(echo ${GITHUB_REPOSITORY | awk -F/ '{print $2}')
         git tag ${RELEASE_NAME}
