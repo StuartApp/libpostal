@@ -48,9 +48,10 @@ jobs:
       run: |
         sudo apt install -y npm
         sudo npm install -g publish-release
-        GITHUB_OWNER=$(echo ${GITHUB_REPOSITORY | awk -F/ '{print $1}')
-        GITHUB_REPO=$(echo ${GITHUB_REPOSITORY | awk -F/ '{print $2}')
+        GITHUB_OWNER=$(echo ${GITHUB_REPOSITORY} | awk -F/ '{print $1}')
+        GITHUB_REPO=$(echo ${GITHUB_REPOSITORY} | awk -F/ '{print $2}')
         git tag ${RELEASE_NAME}
+        echo '{}' > package.json
         publish-release \
           --reuseRelease \
           --tag ${TAG_NAME} \
