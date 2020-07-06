@@ -47,7 +47,7 @@ jobs:
         RELEASE_NOTES: "Automatic release from GH action on this project."
       run: |
         sudo gem install --no-document dpl --pre
-        dpl \
+        dpl releases \
           --slug ${GITHUB_REPOSITORY} \
           --token ${GITHUB_TOKEN} \
           --name ${RELEASE_NAME} \
