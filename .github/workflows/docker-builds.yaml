@@ -56,7 +56,7 @@ jobs:
         echo '{}' > package.json
         publish-release \
           --reuseRelease \
-          --tag ${TAG_NAME} \
+          --tag ${RELEASE_TAG} \
           --owner ${GITHUB_OWNER} \
           --repo ${GITHUB_REPO} \
           --token ${GITHUB_TOKEN} \
