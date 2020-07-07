@@ -26,7 +26,7 @@ RUN tar -zcf data.tgz usr/share/libpostal && \
 # build deb package
 # NOTE: latest official ruby ver for jessie is 2.1 and fpm requires >2.3, so we use rvm for jessie
 RUN bash /src/assets/bin/setup-ruby-version-for-npm && \
-    test -f /etc/profile.d/rvm.sh && source /etc/profile.d/rvm.sh && \
+    if [ -f /etc/profile.d/rvm.sh ]; then source /etc/profile.d/rvm.sh; fi && \
     gem install --no-document fpm && \
     export DEB_PACKAGE_VERSION=$(sed 's|^v||' /src/versions/parser)+git$(bash -c 'cd /src; git rev-parse HEAD | head -c7') && \
     envsubst '${DEB_PACKAGE_VERSION}' < /src/assets/fpm-deb-scripts/postinst.sh.tpl > /src/assets/fpm-deb-scripts/postinst.sh && \
