@@ -1,8 +1,8 @@
 #!/bin/sh
 
 download_data() {
-  . /etc/lsb-release || true
-  . /etc/os-release || true
+  if [ -e /etc/lsb-release ]; then . /etc/lsb-release; fi
+  if [ -e /etc/os-release ]; then . /etc/os-release; fi
   if [ "${DISTRIB_ID}" = "Ubuntu" ]
   then
     curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/ubuntu-${DISTRIB_RELEASE}-data-${GH_RELEASE}.tar.gz | tar -C / -zxf -
