@@ -21,7 +21,9 @@ WORKDIR /output
 RUN tar -zcf data.tgz usr/share/libpostal && \
     rm -rf /output/usr/share/libpostal/*
 # build deb package
-RUN export DEB_PACKAGE_VERSION=$(sed 's|^v||' /src/versions/parser)+git$(bash -c 'cd /src; git rev-parse HEAD | head -c7') && \
+# NOTE: latest official ruby ver for jessie is 2.1 and fpm requires >2.3, so we use rvm for jessie
+RUN bash /src/assets/bin/setup-ruby-version-for-npm && \
+    export DEB_PACKAGE_VERSION=$(sed 's|^v||' /src/versions/parser)+git$(bash -c 'cd /src; git rev-parse HEAD | head -c7') && \
     envsubst '${DEB_PACKAGE_VERSION}' < /src/assets/fpm-deb-scripts/postinst.sh.tpl > /src/assets/fpm-deb-scripts/postinst.sh && \
     fpm -n ${DEB_PACKAGE_NAME} \
         -v ${DEB_PACKAGE_VERSION} \
