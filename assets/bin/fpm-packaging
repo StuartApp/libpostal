@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -euo pipefail
-
 INSTALLED_RUBY_VERSION=$(ruby --version | head -c8 | awk '{print $2}')
 # NOTE: latest official ruby ver for jessie is 2.1 and fpm requires >2.3, so we use rvm for jessie
 test -z ${FPM_REQUIRED_RUBY_VERSION+x} && FPM_REQUIRED_RUBY_VERSION=2.3
