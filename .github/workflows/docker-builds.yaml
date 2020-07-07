@@ -3,7 +3,7 @@ on: [push, pull_request]
 
 env:
   DOCKER_IMAGE_BASENAME: libpostal
-  BASE_IMAGES: "debian:stretch debian:jessie ubuntu:16.04 ubuntu:18.04"
+  BASE_IMAGES: "debian:8 debian:9 ubuntu:16.04 ubuntu:18.04"
 
 jobs:
   build:
