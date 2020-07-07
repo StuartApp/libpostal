@@ -11,5 +11,4 @@ then
   curl -sSL https://get.rvm.io | bash -s stable
   source /etc/profile.d/rvm.sh
   rvm install ${FPM_REQUIRED_RUBY_VERSION}
-  rvm use ${FPM_REQUIRED_RUBY_VERSION}
 fi
