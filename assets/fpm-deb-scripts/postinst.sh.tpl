@@ -1,10 +1,15 @@
 #!/bin/sh
 
 download_data() {
-  . /etc/lsb-release
+  . /etc/lsb-release || true
+  . /etc/os-release || true
   if [ "${DISTRIB_ID}" = "Ubuntu" ]
   then
     curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/ubuntu-${DISTRIB_RELEASE}-data-${GH_RELEASE}.tar.gz | tar -C / -zxf -
+  else
+    # we assume it's debian
+    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/debian-${VERSION_CODENAME}-data-${GH_RELEASE}.tar.gz | tar -C / -zxf -
+    fi
   fi
 }
 
