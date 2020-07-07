@@ -9,7 +9,6 @@ download_data() {
   else
     # we assume it's debian
     curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/debian-${VERSION_CODENAME}-data-${GH_RELEASE}.tar.gz | tar -C / -zxf -
-    fi
   fi
 }
 
