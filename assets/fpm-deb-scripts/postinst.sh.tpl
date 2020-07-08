@@ -5,10 +5,10 @@ download_data() {
   if [ -e /etc/os-release ]; then . /etc/os-release; fi
   if [ "${DISTRIB_ID}" = "Ubuntu" ]
   then
-    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/ubuntu_${DISTRIB_RELEASE}-data.tar.gz | tar -C / -zxf -
+    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/ubuntu_${DISTRIB_RELEASE}-data.tgz | tar -C / -zxf -
   else
     # we assume it's debian
-    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/debian_${VERSION_ID}-data.tar.gz | tar -C / -zxf -
+    curl -sL https://github.com/StuartApp/libpostal/releases/download/${GH_RELEASE}/debian_${VERSION_ID}-data.tgz | tar -C / -zxf -
   fi
 }
 
