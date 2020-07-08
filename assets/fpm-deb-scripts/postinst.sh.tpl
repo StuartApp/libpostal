@@ -20,6 +20,8 @@ after_upgrade() {
 after_install() {
   echo "Installing data package '${GH_RELEASE}' from GH releases..."
   download_data
+  # workaround ruby_postal not using default include path
+  ln -nfs /usr/include/libpostal /usr/local/include/libpostal
 }
 
 export PACKAGE_VERSION=${DEB_PACKAGE_VERSION}
