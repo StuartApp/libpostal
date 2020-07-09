@@ -25,7 +25,7 @@ after_install() {
 }
 
 export PACKAGE_VERSION=${DEB_PACKAGE_VERSION}
-export GH_RELEASE=$(echo ${PACKAGE_VERSION} | sed 's|+git|-|')
+export GH_RELEASE=$(echo ${PACKAGE_VERSION} | sed 's|-.+git|-|')
 
 if [ "${1}" = "configure" -a -z "${2}" ] || \
    [ "${1}" = "abort-remove" ]
