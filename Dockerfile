@@ -3,6 +3,7 @@ FROM ${BASE_IMAGE}
 ARG DEB_PACKAGE_NAME="libpostal"
 ARG DEB_PACKAGE_DESC="Debian wrapping for https://github.com/openvenues/libpostal"
 ARG DEB_PACKAGE_VERSION="0.0.1"
+ARG DEB_PACKAGE_STUART_VERSION="1"
 ARG BASE_PACKAGES="ruby ruby-dev rubygems build-essential curl autoconf automake libtool pkg-config git gettext"
 ENV APT_ARGS="-y -o APT::Install-Suggests=false -o APT::Install-Recommends=false"
 
