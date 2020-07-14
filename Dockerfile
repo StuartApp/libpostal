@@ -15,14 +15,14 @@ COPY ./ /src
 WORKDIR /src
 RUN bash bootstrap.sh && \
     mkdir -p /output/usr && \
-    ./configure --prefix=/output/usr && \
+    ./configure --prefix=/output/usr --datadir=/usr/share/libpostal && \
     make -j && \
     make install
 
 # move out big files from the package
 WORKDIR /output
-RUN tar -zcf data.tgz usr/share/libpostal && \
-    rm -rf /output/usr/share/libpostal/*
+RUN tar -C / -zcf data.tgz usr/share/libpostal && \
+    rm -rf /output/usr/share/libpostal/* /usr/share/libpostal
 
 # build deb package
 RUN bash /src/assets/bin/fpm-packaging
